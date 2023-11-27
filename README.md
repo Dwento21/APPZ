@@ -34,21 +34,25 @@ while True:
     command = recognize_speech().lower()
     if "привіт" in command:
         speak("Привіт, я ваш голосовий помічник!")
+    elif "як справи" in command:
+        speak("hi im good and you у мене все добре а у вас")
     elif "яка зараз дата" in command:
         now = datetime.datetime.now()
         current_date = now.strftime("%d-%m-%Y")
         speak(f"Сьогодні {current_date}")
-    elif any(keyword in command for keyword in ["який зараз час", "скільки годин", "що за година", "яка зараз година",
-                                                "годинник скільки показує", "котра година зараз",
-                                                "скажи, будь ласка, час", "котре число годин",
-                                                "підкажи, яка година", "скажи, будь ласка, скільки часу",
-                                                "котра зараз година", "на годиннику яке число"]):
+    elif any(keyword in command for keyword in ["який зараз час", "скільки годин", "що за година", "яка зараз година","годинник скільки показує", "котра година зараз","скажи, будь ласка, час", "котре число годин", "підкажи, яка година", "скажи, будь ласка, скільки часу",
+"котра зараз година", "на годиннику яке число"]):
         now = datetime.datetime.now()
         current_time = now.strftime("%H:%M")
         speak(f"Зараз {current_time}")
     elif "відкрий телеграм" in command:
         webbrowser.open("https://web.telegram.org/")
-    # Додайте умови для відкриття YouTube, Spotify, Google та інші, подібні до ваших потреб
+    elif "відкрий youtube" in command:
+        webbrowser.open("https://www.youtube.com/")
+    elif "відкрий spotify" in command:
+        webbrowser.open("https://open.spotify.com/")
+    elif any(keyword in command for keyword in ["відкрий google", "гугл", "google"]):
+        webbrowser.open("https://www.google.com/")
     elif "калькулятор" in command:
         speak("Для калькулятора скажіть операцію, наприклад, Додавання, Віднімання, Множення, Ділення")
         operation = recognize_speech().lower()
