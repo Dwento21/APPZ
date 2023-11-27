@@ -3,6 +3,13 @@ import pyttsx3
 import datetime
 import webbrowser
 import re
+import random
+
+# Додамо список анекдотів
+anekdots = ['У самурая наркомана немає шляху - є тільки дорожка',
+            'Наступив слон на колобка і каже: блін',
+            'Гуляють дві зубочистки по лісу, мимо них пробігає їжачок, і одна зубочистка каже іншій, а я не знала, що тут маршрутки їздять',
+            'Питає програміст програміста, ось хочу пошту без спаму, що порадиш, інший відповідає - голубів']
 
 # Функція для розпізнавання голосу
 def recognize_speech():
@@ -32,24 +39,31 @@ def speak(text):
 # Основний цикл роботи помічника
 while True:
     command = recognize_speech().lower()
-    if "привіт" in command:
+    if "привіт" in command or "хей" in command:
         speak("Привіт, я ваш голосовий помічник!")
-    elif "як справи" in command:
+    elif "як справи" in command or "що ти" in command:
         speak("hi im good and you у мене все добре а у вас")
-    elif "яка зараз дата" in command:
+    elif "слава україні" in command:
+        speak("Героям Слава")
+    elif any(word in command for word in ["розкажи жарт", "жарт", "розкажи анекдот", "анекдот"]):
+        speak(random.choice(anekdots))
+    elif "яка зараз дата" in command or "дата" in command or "число" in command or "яке число" in command or "яке сьогодні число" in command:
         now = datetime.datetime.now()
         current_date = now.strftime("%d-%m-%Y")
         speak(f"Сьогодні {current_date}")
-    elif any(keyword in command for keyword in ["який зараз час", "скільки годин", "що за година", "яка зараз година","годинник скільки показує", "котра година зараз","скажи, будь ласка, час", "котре число годин", "підкажи, яка година", "скажи, будь ласка, скільки часу",
-"котра зараз година", "на годиннику яке число"]):
+    elif any(keyword in command for keyword in ["який зараз час", "скільки годин", "що за година", "яка зараз година",
+                                               "годинник скільки показує", "котра година зараз",
+                                               "скажи, будь ласка, час", "котре число годин",
+                                               "підкажи, яка година", "скажи, будь ласка, скільки часу",
+                                               "котра зараз година", "на годиннику яке число"]):
         now = datetime.datetime.now()
         current_time = now.strftime("%H:%M")
         speak(f"Зараз {current_time}")
-    elif "відкрий телеграм" in command:
+    elif "відкрий телеграм" in command or "телеграм" in command:
         webbrowser.open("https://web.telegram.org/")
-    elif "відкрий youtube" in command:
+    elif "відкрий youtube" in command or "youtube" in command:
         webbrowser.open("https://www.youtube.com/")
-    elif "відкрий spotify" in command:
+    elif "відкрий spotify" in command or "spotify" in command:
         webbrowser.open("https://open.spotify.com/")
     elif any(keyword in command for keyword in ["відкрий google", "гугл", "google"]):
         webbrowser.open("https://www.google.com/")
